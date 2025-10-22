@@ -14,13 +14,31 @@ import org.springframework.web.bind.annotation.RestController;
 public class proxycontroller {
     
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String[] SRVS =  {"http://13.218.77.116:8080"};
+    private static final String[] SRVS =  {"http://13.218.77.116:8080", "http://23.23.6.119:8080"};
 
     int numberurl = 0;
 
     public String activopasivo(){
-        String serverUrl = SRVS[numberurl];
-        return serverUrl;
+        try {
+            String serverUrl = SRVS[numberurl];
+            numberurl = 0;
+            URL obj = new URL(serverUrl);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            int responseCode = con.getResponseCode();
+            System.out.print("respuesta del servidor 1" + responseCode);
+            System.err.println(numberurl + "\n");
+            System.err.println("Servidor 1 funcionando\n");
+            return serverUrl;    
+        } catch (Exception e) {
+            numberurl = (numberurl + 1) % SRVS.length;
+            String serverUrl = SRVS[numberurl];
+            System.err.println(numberurl + "\n");
+            System.err.println(serverUrl + "\n");
+            System.err.println("Servidor 2 funcionando\n");
+            numberurl = 0;
+            return serverUrl;
+        }
+        
     }
     
     
@@ -32,12 +50,14 @@ public class proxycontroller {
         System.out.print(correctURL);
 
         URL obj = new URL(correctURL);
+        
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
         
         //The following invocation perform the connection implicitly before getting the code
         int responseCode = con.getResponseCode();
+        System.out.print("hasta aqui llega el programa" + responseCode);
         System.out.println(" ");
         System.out.println("GET Response Code :: " + responseCode);
         
