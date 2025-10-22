@@ -8,7 +8,7 @@ los backends y el proxy
 
 
 ### video ejecutando el programa 
-![video]()
+https://youtu.be/CIGsS8L-N1Y
 
 para ejecutarlos simplemente se debe clonar el repositorio 
 
