@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class proxycontroller {
     
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String[] SRVS =  {"http://localhost:8080"};
+    private static final String[] SRVS =  {"http://13.218.77.116:8080"};
 
     int numberurl = 0;
 
